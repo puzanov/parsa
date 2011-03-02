@@ -1,0 +1,3 @@
+vendor
+test/data/from_sftp_access.log.gz
+test/data/access.log.gz
