@@ -3,3 +3,4 @@ test/data/from_sftp_access.log.gz
 test/data/access.log.gz
 test/data/from_sftp_access.log
 test/data/raw
+config.yml
