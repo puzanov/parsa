@@ -1,0 +1,6 @@
+host:  
+username: 
+password: 
+remote_dir: /var/log/apache2
+local_dir: /mnt/src/parsa
+
