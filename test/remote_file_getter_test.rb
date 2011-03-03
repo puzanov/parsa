@@ -11,7 +11,7 @@ class RemoteFileGetterTest < Test::Unit::TestCase
   def setup
     puts "deleting #{@@local_file}"
     File.delete(@@local_file) if File.exists?(@@local_file)
-    system("gunzip", "#{@@remote_file}.gz") if File.exists?("#{@@remote_file}.gz")
+    File.delete(@@remote_file + ".gz") if File.exists?(@@remote_file + ".gz")
   end
 
   def test_archive_and_get_file
