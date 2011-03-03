@@ -1,5 +1,6 @@
 class LogParser
   require "lib/file_id_getter"
+  require "lib/log_data"
 
   attr_accessor :valid_statuses, :log_format, :apache_log_parser
 
@@ -25,8 +26,3 @@ class LogParser
     return nil
   end
 end
-
-class LogData
-  attr_accessor :file_id, :bytes, :date
-end
-
