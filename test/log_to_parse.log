@@ -1,0 +1,2 @@
+95.56.230.121 88.204.159.12 -  [10/Feb/2011:23:59:57 +0000] "GET /files/1731600/preview.jpg HTTP/1.0" 200 19727 "http://video.namba.kz/swf/flowplayer-3.1.5.swf?0.5423447792149734" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.94 Safari/534.13" 16
+88.204.159.8 78.94.74.108 -  [10/Feb/2011:23:59:57 +0000] "GET /progress HTTP/1.1" 404 14 "http://files.namba.kz/upload.php" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.84 Safari/534.13" 1

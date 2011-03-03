@@ -1,3 +1,5 @@
 require "test/unit"
 require "test/log_filename_test"
 require "test/remote_file_getter_test"
+require "test/log_parser_test"
+require "test/file_id_getter_test"
