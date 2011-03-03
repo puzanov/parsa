@@ -1,9 +1,9 @@
-class CreateLogDatas < ActiveRecord::Migration
+class CreateLogData < ActiveRecord::Migration
   def self.up
     create_table :log_datas do |t|
-      t.int :file_id
-      t.int :bytes
-      t.date :date
+      t.integer :file_id
+      t.integer :bytes
+      t.datetime :date
     end
   end
 
