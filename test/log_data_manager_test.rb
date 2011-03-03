@@ -1,6 +1,6 @@
 require "config"
 require "test/unit"
-require "lib/log_data"
+require "lib/log_data_manager"
 
 ActiveRecord::Base.logger = LOG
 
@@ -42,17 +42,5 @@ class LogDataManagerTest < Test::Unit::TestCase
 
     check_log_data = LogData.where(:file_id => 1, :date => DateTime.now.to_date).first
     assert_equal(2, check_log_data.bytes)
-  end
-end
-
-class LogDataManager
-  def save log_data
-    existing_log_data = LogData.where(:file_id => log_data.file_id, :date => log_data.date.to_date).first
-    unless existing_log_data.nil?
-      existing_log_data.bytes += log_data.bytes
-      existing_log_data.save
-      return
-    end
-    log_data.save
   end
 end
