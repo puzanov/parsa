@@ -6,8 +6,9 @@ require "lib/log_data_manager"
 require "lib/utils"
 
 LOG.info "Starting parsa"
-
+threads = Array.new
 CONFIG["servers"].each do |server|
+  threads << Thread.new {
   LOG.info "Working with #{server["host"]}"
   log_filename = LogFilename.get
 
@@ -35,9 +36,14 @@ CONFIG["servers"].each do |server|
     percent = (processed_lines * 100 / lines_number)
     if checkpoints.include?(percent)
       checkpoints.delete(percent)
-      puts "#{percent}% is done..."
+      LOG.info "#{data.host} #{percent}% is done..."
     end
   end
+  }
+end
+
+threads.each do |thread|
+  thread.join
 end
 
 LOG.info "Ending parsa"
