@@ -29,11 +29,16 @@ CONFIG["servers"].each do |server|
   processed_lines = 0
   checkpoints = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 96, 97, 98, 99]
 
-  log_position = LogPosition.where(:filepath => data.remote_file).first
+  log_position = LogPosition.where(:filepath => data.remote_file, :host => data.host).first
   if log_position.nil?
+    LOG.info "#{data.host} Working with new log"
     log_position = LogPosition.new
+    log_position.host = data.host
     log_position.filepath = data.remote_file
     log_position.position = 0
+  else
+    LOG.warn "#{data.host} Log is not new!"
+    LOG.warn "#{data.host} skipping #{log_position.position} lines"
   end
 
   File.readlines(data.local_file).collect do |line|

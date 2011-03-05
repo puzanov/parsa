@@ -4,6 +4,6 @@ class ChangeFilepathColumn < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :log_data, :filepath, :integer  
+    change_column :log_position, :filepath, :integer  
   end
 end
