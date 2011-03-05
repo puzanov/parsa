@@ -31,13 +31,15 @@ CONFIG["servers"].each do |server|
 
   log_position = LogPosition.where(:filepath => data.remote_file).first
   if log_position.nil?
+    log_position = LogPosition.new
     log_position.filepath = data.remote_file
+    log_position.position = 0
   end
 
   File.readlines(data.local_file).collect do |line|
     processed_lines += 1
     
-    next if log_position.position >= processed_lines
+    next if processed_lines < log_position.position
     log_position.position = processed_lines
     log_position.save
 
