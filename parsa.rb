@@ -6,12 +6,17 @@ require "lib/log_data_manager"
 require "lib/utils"
 require "lib/log_position"
 
+Help.show_me_if_needed_and_exit
+
 LOG.info "Starting parsa"
 threads = Array.new
+
 CONFIG["servers"].each do |server|
   threads << Thread.new {
   LOG.info "Working with #{server["host"]}"
-  log_filename = LogFilename.get
+  
+  log_filename = LogFilename.send ARGV[0]          if ARGV.length == 1 
+  log_filename = LogFilename.send ARGV[0], ARGV[1] if ARGV.length == 2 
 
   data = RemoteFileGetterData.new
   data.host        = server["host"]
