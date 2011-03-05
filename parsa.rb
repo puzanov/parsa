@@ -4,6 +4,7 @@ require "lib/remote_file_getter.rb"
 require "lib/log_parser"
 require "lib/log_data_manager"
 require "lib/utils"
+require "lib/log_position"
 
 LOG.info "Starting parsa"
 threads = Array.new
@@ -28,8 +29,18 @@ CONFIG["servers"].each do |server|
   processed_lines = 0
   checkpoints = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 96, 97, 98, 99]
 
+  log_position = LogPosition.where(:filepath => data.remote_file).first
+  if log_position.nil?
+    log_position.filepath = data.remote_file
+  end
+
   File.readlines(data.local_file).collect do |line|
     processed_lines += 1
+    
+    next if log_position.position >= processed_lines
+    log_position.position = processed_lines
+    log_position.save
+
     log_data = log_parser.parse(line)
     next if log_data.nil?
     log_data_manager.save log_data

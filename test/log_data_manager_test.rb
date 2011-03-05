@@ -7,6 +7,7 @@ ActiveRecord::Base.logger = LOG
 class LogDataManagerTest < Test::Unit::TestCase
   def setup
     LogData.delete_all
+    LogPosition.delete_all
   end
   
   def test_smoke
@@ -42,5 +43,53 @@ class LogDataManagerTest < Test::Unit::TestCase
 
     check_log_data = LogData.where(:file_id => 1, :date => DateTime.now.to_date).first
     assert_equal(2, check_log_data.bytes)
+  end
+
+  def test_save_log_position
+    filepath = "/home/oleg/blaa"
+    position = 1
+    log_position = LogPosition.new
+    log_position.filepath = filepath
+    log_position.position = 1
+    log_position.save
+
+    log_position.position = 2
+    log_position.save
+
+    log_position.position = 3
+    log_position.save
+  end
+
+  def test_get_log_position
+    filepath = "/home/oleg/blaa"
+    position = 1
+    log_position = LogPosition.new
+    log_position.filepath = filepath
+    log_position.position = 1
+    log_position.save
+
+    log_position.position = 2
+    log_position.save
+
+    log_position.position = 3
+    log_position.save
+
+    position = LogPosition.where(:position => 3, :filepath => filepath).first
+    puts position.inspect
+
+    position = LogPosition.where(:position => 4, :filepath => filepath).first
+    puts position.inspect
+  end
+end
+
+class LogPosition < ActiveRecord::Base
+  set_table_name :log_position
+
+  def position
+    self[:position]
+  end
+
+  def filepath
+    self[:filename]
   end
 end
