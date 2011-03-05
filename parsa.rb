@@ -25,6 +25,7 @@ CONFIG["servers"].each do |server|
   data.username    = server["username"]
   data.password    = server["password"]
   data.remote_file = server["remote_dir"] + "/" + log_filename
+  data.remote_archived_file = server["remote_dir_for_archived_log"] + "/" + log_filename + ".gz"
   data.local_file  = server["local_dir"] + "/" + log_filename
 
   remote_getter = RemoteFileGetter.new

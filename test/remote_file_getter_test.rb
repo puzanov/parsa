@@ -5,13 +5,14 @@ require "lib/remote_file_getter"
 
 class RemoteFileGetterTest < Test::Unit::TestCase
   @@remote_file = "/mnt/src/parsa/test/data/raw/access.log"
+  @@remote_archived_file = "/tmp/access.log.gz"
   @@local_file  = "/mnt/src/parsa/test/data/from_sftp_access.log"
   @@remote_file_md5_sum = "0f2c7530017c03e4133c07695caee2dd"
   
   def setup
     puts "deleting #{@@local_file}"
     File.delete(@@local_file) if File.exists?(@@local_file)
-    File.delete(@@remote_file + ".gz") if File.exists?(@@remote_file + ".gz")
+    File.delete(@@remote_archived_file) if File.exists?(@@remote_archived_file)
   end
 
   def test_archive_and_get_file
@@ -20,6 +21,7 @@ class RemoteFileGetterTest < Test::Unit::TestCase
     data.username = "oleg"
     data.password = "oleg"
     data.remote_file = @@remote_file
+    data.remote_archived_file = @@remote_archived_file
     data.local_file = @@local_file
 
     remote_file_getter = RemoteFileGetter.new
