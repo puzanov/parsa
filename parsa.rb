@@ -1,4 +1,5 @@
 require "config"
+
 require "lib/log_filename.rb"
 require "lib/remote_file_getter.rb"
 require "lib/log_parser"
