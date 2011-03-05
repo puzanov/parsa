@@ -18,6 +18,8 @@ CONFIG["servers"].each do |server|
   log_filename = LogFilename.send ARGV[0]          if ARGV.length == 1 
   log_filename = LogFilename.send ARGV[0], ARGV[1] if ARGV.length == 2 
 
+  puts "log_filename is #{log_filename}"
+
   data = RemoteFileGetterData.new
   data.host        = server["host"]
   data.username    = server["username"]

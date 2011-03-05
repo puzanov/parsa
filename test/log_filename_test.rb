@@ -21,8 +21,10 @@ class LogFilenameTest < Test::Unit::TestCase
   end
 
   def test_wrong_date
-    assert_raise(WrongDateException) do
+    assert_raise(WrongDateFormat) do
       filename = LogFilename.send :past, "2011-03-01"
     end
   end
 end
+
+
