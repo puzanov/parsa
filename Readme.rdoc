@@ -11,18 +11,18 @@ parsa умеет парсить логи за сегодня, за вчера и
 Очень просто.
 * Нужно подготовить бокс на котором будет стоять ruby версии 1.8, rubygems и mysql. У этого бокса должны быть ключи для доступа к боксам Намба файлов
 * Нужно склонировать репозиторий parsa
- git clone git://github.com/puzanov/parsa.git
+   git clone git://github.com/puzanov/parsa.git
 * Поставить bundler и rake
- sudo gem install bundler rake
+   sudo gem install bundler rake
 * Поставить нужные для parsa гемы через bundler
- bundle install
+   bundle install
 * Запустить parsa и проверить нет ли ошибок
- ruby parsa
+   ruby parsa
 * Создать базу parsa в mysql; пользователя, если требуется и дать ему права на базу
- mysql -u root
- mysql>create database parsa;
- mysql>grant all on parsa.* to 'root'@'localhost';  
+   mysql -u root
+   mysql>create database parsa;
+   mysql>grant all on parsa.* to 'root'@'localhost';  
 * Подготовить базу для работы с parsa
- rake db:migrate
+   rake db:migrate
 
 
