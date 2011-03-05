@@ -3,11 +3,11 @@ servers:
     host: host1 
     username: 
     password: 
-    remote_dir: /var/log/apache2
-    local_dir: /mnt/src/parsa
+    remote_dir: /var/log/filebar
+    local_dir: /home/user/parsa/logs/host1
   -
     host: host2 
     username: 
     password: 
-    remote_dir: /var/log/apache21
-    local_dir: /mnt/src/parsa1
+    remote_dir: /var/log/filebar
+    local_dir: /home/user/parsa/logs/host2
