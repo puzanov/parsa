@@ -1,5 +1,6 @@
+require "rubygems"
+require "rbtrace"
 require "config"
-
 require "lib/log_filename.rb"
 require "lib/remote_file_getter.rb"
 require "lib/log_parser"
@@ -19,8 +20,8 @@ CONFIG["servers"].each do |server|
   log_filename = LogFilename.send ARGV[0]          if ARGV.length == 1 
   log_filename = LogFilename.send ARGV[0], ARGV[1] if ARGV.length == 2 
 
-  puts "log_filename is #{log_filename}"
-
+  LOG.info "log_filename is #{log_filename}"
+  
   data = RemoteFileGetterData.new
   data.host        = server["host"]
   data.username    = server["username"]
@@ -28,6 +29,10 @@ CONFIG["servers"].each do |server|
   data.remote_file = server["remote_dir"] + "/" + log_filename
   data.remote_archived_file = server["remote_dir_for_archived_log"] + "/" + log_filename + ".gz"
   data.local_file  = server["local_dir"] + "/" + log_filename
+
+  LOG.warn "Delete local log file if exists"
+  File.delete(data.local_file) if File.exists?(data.local_file)
+  File.delete(data.local_file + ".gz") if File.exists?(data.local_file + ".gz")
 
   remote_getter = RemoteFileGetter.new
   remote_getter.get_file(data)
