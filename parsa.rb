@@ -28,18 +28,8 @@ CONFIG["servers"].each do |server|
   processed_lines = 0
   checkpoints = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 96, 97, 98, 99]
 
-  log_position = LogPosition.where(:filepath => data.remote_file, :host => data.host).first
-  if log_position.nil?
-    LOG.info "#{data.host} Working with new log"
-    log_position = LogPosition.new
-    log_position.host = data.host
-    log_position.filepath = data.remote_file
-    log_position.position = 0
-  else
-    LOG.warn "#{data.host} Log is not new!"
-    LOG.warn "#{data.host} skipping #{log_position.position} lines"
-  end
-
+  log_position = LogPosition.get_existing_or_new data
+  
   File.readlines(data.local_file).collect do |line|
     processed_lines += 1
     
@@ -49,6 +39,7 @@ CONFIG["servers"].each do |server|
 
     log_data = log_parser.parse(line)
     next if log_data.nil?
+    
     log_data_manager.save log_data
     percent = (processed_lines * 100 / lines_number)
     if checkpoints.include?(percent)
@@ -56,7 +47,7 @@ CONFIG["servers"].each do |server|
       LOG.info "#{data.host} #{percent}% is done..."
     end
   end
-  }
+  } 
 end
 
 threads.each do |thread|
