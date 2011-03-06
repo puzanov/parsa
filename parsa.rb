@@ -25,9 +25,7 @@ CONFIG["servers"].each do |server|
   data.remote_archived_file = server["remote_dir_for_archived_log"] + "/" + log_filename + ".gz"
   data.local_file  = server["local_dir"] + "/" + log_filename
 
-  LOG.warn "Delete local log file if exists"
-  File.delete(data.local_file) if File.exists?(data.local_file)
-  File.delete(data.local_file + ".gz") if File.exists?(data.local_file + ".gz")
+  LocalLogs.delete data.local_file
 
   remote_getter = RemoteFileGetter.new
   remote_getter.get_file(data)

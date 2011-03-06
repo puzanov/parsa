@@ -19,3 +19,11 @@ class Help
     end
   end
 end
+
+class LocalLogs
+  def self.delete log_path
+    LOG.warn "Delete local log file if exists"
+    File.delete(log_path) if File.exists?(log_path)
+    File.delete(log_path + ".gz") if File.exists?(log_path + ".gz")
+  end
+end
