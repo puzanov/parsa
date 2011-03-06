@@ -16,15 +16,7 @@ CONFIG["servers"].each do |server|
   LOG.info "Working with #{server["host"]}"
   
   log_filename = LogFilename.get_by_argv
-
-  data = RemoteFileGetterData.new
-  data.host        = server["host"]
-  data.username    = server["username"]
-  data.password    = server["password"]
-  data.remote_file = server["remote_dir"] + "/" + log_filename
-  data.remote_archived_file = server["remote_dir_for_archived_log"] + "/" + log_filename + ".gz"
-  data.local_file  = server["local_dir"] + "/" + log_filename
-
+  data = RemoteFileGetterData.build_itself_using server, log_filename
   LocalLogs.delete data.local_file
 
   remote_getter = RemoteFileGetter.new
