@@ -13,6 +13,12 @@ class LogFilename
     end
     "access-#{date}.log"
   end
+  def self.get_by_argv
+    log_filename = LogFilename.send ARGV[0]          if ARGV.length == 1 
+    log_filename = LogFilename.send ARGV[0], ARGV[1] if ARGV.length == 2 
+    LOG.info "log_filename is #{log_filename}"
+    return log_filename
+  end
 end
 
 class WrongDateFormat < StandardError
