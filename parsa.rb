@@ -15,7 +15,7 @@ CONFIG["servers"].each do |server|
   threads << Thread.new {
   LOG.info "Working with #{server["host"]}"
   
-  log_filename = LogFilename.get_by_argv
+  log_filename = LogFilename.get_by_argv server["log_filename_prefix"]
   data = RemoteFileGetterData.build_itself_using server, log_filename
   LocalLogs.delete data.local_file
 
