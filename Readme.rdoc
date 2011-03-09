@@ -37,6 +37,7 @@ parsa считывает файл config.yml в котором указываю�
      remote_dir: /var/log/filebar
      remote_dir_for_archived_log: /tmp
      local_dir: /home/user/parsa/logs/host1
+     log_filename_prefix: access-
    -
      host: host2
      username:
@@ -44,6 +45,7 @@ parsa считывает файл config.yml в котором указываю�
      remote_dir: /var/log/filebar
      remote_dir_for_archived_log: /tmp
      local_dir: /home/user/parsa/logs/host2
+     log_filename_prefix: access-
 На что нужно обратить внимание?
 * значения нужно писать без кавычек
 * local_dir должен быть уникален для каждого хоста. То есть для каждого хоста нужно прописать свою диру, куда будут складываться логи этого хоста.
