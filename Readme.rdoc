@@ -9,25 +9,25 @@ parsa умеет парсить логи за сегодня, за вчера и
 
 == Как установить parsa и как заставить ее работать?
 Очень просто.
-* Нужно подготовить бокс на котором будет стоять ruby версии 1.8, rubygems и mysql. У этого бокса должны быть ключи для доступа к боксам Намба файлов
+* Нужно подготовить бокс на котором будет стоять ruby версии 1.8, rubygems(нужно скачать rubygems версии 1.6.1 с rubygems.org) и mysql. Возможно потребуется поставить ruby-dev. У этого бокса должны быть ключи для доступа к боксам Намба файлов
 * Нужно склонировать репозиторий parsa
    git clone git://github.com/puzanov/parsa.git
 * Поставить bundler и rake
    sudo gem install bundler rake
 * Поставить нужные для parsa гемы через bundler
    bundle install
-* Запустить parsa и проверить нет ли ошибок
-   ruby parsa
 * Создать базу parsa в mysql; пользователя, если требуется и дать ему права на базу
    mysql -u root
    mysql>create database parsa;
    mysql>grant all on parsa.* to 'root'@'localhost';  
 * Подготовить базу для работы с parsa
    rake db:migrate
+* Запустить parsa и проверить нет ли ошибок
+   ruby parsa
 
 == Файл конфигурации и директории для локальных логов
 parsa считывает файл config.yml в котором указываются боксы Намба файлов, реквизиты доступа и директории для логов.
- mv config.default.yml config.yml
+ cp config.default.yml config.yml
 Дефолтный конфиг выглядит так:
  servers:
    -
