@@ -33,7 +33,7 @@ CONFIG["servers"].each do |server|
   File.readlines(data.local_file).collect do |line|
     processed_lines += 1
     
-    next if processed_lines < log_position.position
+    next if processed_lines <= log_position.position
     log_position.position = processed_lines
     log_position.save
 
