@@ -2,9 +2,10 @@ require "config"
 require "lib/log_filename.rb"
 require "lib/remote_file_getter.rb"
 require "lib/log_parser"
-require "lib/log_data_manager"
+#require "lib/log_data_manager2"
 require "lib/utils"
 require "lib/log_position"
+require "lib/fastdate.rb"
 
 Help.show_me_if_needed_and_exit
 
@@ -23,7 +24,13 @@ CONFIG["servers"].each do |server|
   remote_getter.get_file(data)
 
   log_parser = LogParser.new
-  log_data_manager = LogDataManager.new
+#  log_data_manager = LogDataManager2.new
+  db = Mysql.new('localhost', 'parsa', 'parsa', 'parsa')
+#  rescue Mysql::Error
+#    LOG.error "Could not connect to database #{db::errstr}"
+  statement = db.prepare "INSERT INTO log_data (file_id,bytes,date) values (?,?,?) on duplicate key update bytes = bytes + ?"
+  dateparser = Fastdate.new
+
   lines_number = CountLines.of data.local_file
   processed_lines = 0
   checkpoints = [1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 96, 97, 98, 99]
@@ -40,7 +47,8 @@ CONFIG["servers"].each do |server|
     log_data = log_parser.parse(line)
     next if log_data.nil?
     
-    log_data_manager.save log_data
+  #  log_data_manager.save log_data
+    statement.execute log_data[0],log_data[1],dateparser.parse(log_data[2]),log_data[1]
     percent = (processed_lines * 100 / lines_number)
     if checkpoints.include?(percent)
       checkpoints.delete(percent)
