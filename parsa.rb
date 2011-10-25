@@ -51,7 +51,13 @@ CONFIG["servers"].each do |server|
 end
 
 threads.each do |thread|
-  thread.join
+  begin
+    thread.join
+  rescue Exception => ex
+    LOG.error "ERROR IN CLASS #{$!.inspect}"
+    LOG.error "ERROR MESSAGE: #{ex.message}"
+    LOG.error "ERROR BACKTRACE: #{ex.backtrace.join("\n")}"
+  end
 end
 
 LOG.info "Ending parsa"
