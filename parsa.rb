@@ -2,7 +2,6 @@ require "config"
 require "lib/log_filename.rb"
 require "lib/remote_file_getter.rb"
 require "lib/log_parser"
-#require "lib/log_data_manager2"
 require "lib/utils"
 require "lib/log_position"
 require "lib/fastdate.rb"
@@ -25,7 +24,7 @@ CONFIG["servers"].each do |server|
 
   log_parser = LogParser.new
 #  log_data_manager = LogDataManager2.new
-  db = Mysql.new('localhost', 'parsa', 'parsa', 'parsa')
+  db = Mysql.new('localhost', 'root', 'root', 'parsa')
 #  rescue Mysql::Error
 #    LOG.error "Could not connect to database #{db::errstr}"
   statement = db.prepare "INSERT INTO log_data (file_id,bytes,date) values (?,?,?) on duplicate key update bytes = bytes + ?"
