@@ -11,7 +11,7 @@ ActiveRecord::Base.establish_connection(
   :adapter  => 'mysql2',
   :host => 'localhost',
   :database => 'parsa',
-  :username => 'root',
-  :password => 'root'
+  :username => 'parsa',
+  :password => 'parsa'
 )
 

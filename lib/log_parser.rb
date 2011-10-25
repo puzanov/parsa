@@ -17,11 +17,12 @@ class LogParser
     return nil if @valid_statuses.index(parsed_line["%>s"]).nil?
     file_id = FileIdGetter.get_from parsed_line["%r"]
     unless file_id.nil?
-      log_data = LogData.new
-      log_data.file_id = file_id.to_i
-      log_data.bytes = parsed_line["%b"].to_i
-      log_data.date = Date.parse(parsed_line["%t"])
-      return log_data
+#      log_data = LogData.new
+    #  log_data = []
+    #  log_data.push( file_id.to_i )
+    #  log_data.push ( parsed_line["%b"].to_i )
+    #  log_data.push ( parsed_line["%t"] )
+      return [file_id.to_i, parsed_line["%b"].to_i, parsed_line["%t"]]
     end
     return nil
   end

@@ -6,3 +6,6 @@ test/data/raw
 config.yml
 logs
 .bundle
+log_parser_perftest.rb
+test/log_parser_perftest.rb
+
